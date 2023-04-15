@@ -21,7 +21,7 @@ export const Caja = styled.div`
         font-weight: 500;
         color: #fff;
     }
-    @media (max-width: 533px) {
+    @media (max-width: 695px) {
         justify-content: space-evenly;
     }
 `

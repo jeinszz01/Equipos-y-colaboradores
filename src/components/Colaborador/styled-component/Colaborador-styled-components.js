@@ -6,6 +6,7 @@ export const Caja = styled.div`
     width: 280px;
     display: flex;
     flex-direction: column;
+    position: relative;
 `
 export const CajaImg = styled.div`
     background-color: ${props => props.colorPrimario};
@@ -40,4 +41,21 @@ export const CajaInfo = styled.div`
         padding: 0 26px;
     }
 `
-
+export const ImgDeleteSvg = styled.img`
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    cursor: pointer;
+`
+export const ImgHeartFalseSvg = styled.img`
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+`
+export const ImgHeartTrueSvg = styled.img`
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+`

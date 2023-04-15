@@ -3,7 +3,10 @@ import { colors } from '../../../styled-components/theme'
 
 export const Section = styled.section`
     display: flex;
-    justify-content: center;
+    align-items: start;
+    justify-content: space-evenly;
+    gap: 2rem;
+    flex-wrap: wrap;
     margin: 80px 0;
 `
 
@@ -13,7 +16,8 @@ export const Form = styled.form`
     border-radius: 20px;
     padding: 10px 100px;
     width: 100%;
-    max-width: 1121px;
+    max-width: 650px;
+    height: auto;
     @media (max-width: 620px) {
         margin: 0 10px;
         padding: 10px 15px;
@@ -37,12 +41,14 @@ export const Label = styled.label`
 export const Input = styled.input`
     font-family: Montserrat;
     width: 100%;
-    padding: 30px 20px;
+    padding: ${props => props.type === 'color' ? '5px 20px' : '30px 20px'};
+    height: 50px;
     border: none;
     background-color: #FFF;
     box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.06);
     outline-color: ${colors.primary};
     margin-bottom: 24px;
+    border-radius: 5px;
 `
 
 export const Select = styled.select`
@@ -65,6 +71,7 @@ export const Boton = styled.button`
     border-radius: 10px;
     background-color: ${colors.primary};
     margin: 32px 0;
+    display: block;
     cursor: pointer;
     &:hover {
         color: #95FFD4;

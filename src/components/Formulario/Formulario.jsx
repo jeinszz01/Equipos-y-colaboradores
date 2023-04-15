@@ -1,14 +1,23 @@
 import { useState } from "react"
-import { Section, Form, TituloForm, Label, Select, Boton } from "./styled-component/formulario-styled-components"
+import { Section, Form, TituloForm, Label, Select, Boton, Input } from "./styled-component/formulario-styled-components"
 import Inputs from "./components/Inputs"
 import SelectOption from "./components/SelectOption"
 
-const Formulario = ({equipos, nuevoColaborador}) => {
+const Formulario = ({equipos, nuevoColaborador, nuevoEquipo}) => {
 
     const [ nameState, setNameState ] = useState('')
     const [ puestoState, setPuestoState ] = useState('')
     const [ fotoState, setFotoState ] = useState('')
     const [ equipoState, setEquipoState ] = useState('')
+
+    const [ tituloEquipo, setTituloEquipo ] = useState('')
+    const [ color, setColor ] = useState('#000000') //
+
+    const generarId = () => {
+        const random = Math.random().toString(36).substr(2)
+        const fecha = Date.now().toString(36)
+        return random + fecha
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -17,13 +26,33 @@ const Formulario = ({equipos, nuevoColaborador}) => {
             nameState,
             puestoState,
             fotoState,
-            equipoState
+            equipoState,
+            favorite: false
         }
-        nuevoColaborador(newColaborador)
+
+        if(newColaborador.id) {
+            console.log('editando...')
+        } else {
+            newColaborador.id = generarId()
+            nuevoColaborador(newColaborador)
+        }
         setNameState('')
         setPuestoState('')
         setFotoState('')
         setEquipoState('')
+    }
+
+    const handleSubmitEquipo = (e) => {
+        e.preventDefault()
+
+        const newEquipo = {
+            nombre: tituloEquipo,
+            colorPrimario: color
+        }
+        newEquipo.id = generarId()
+        nuevoEquipo(newEquipo)
+        setTituloEquipo('')
+        setColor('#000000')
     }
 
     return (
@@ -31,9 +60,9 @@ const Formulario = ({equipos, nuevoColaborador}) => {
             <Form onSubmit={handleSubmit}>
                 <TituloForm>Rellena el formulario para crear el colaborador.</TituloForm>
                 
-                <Inputs name='nombre' llenarInputs={setNameState} valor={nameState} placeHold='Ingresa nombre' required />
-                <Inputs name='puesto' llenarInputs={setPuestoState} valor={puestoState} placeHold='Ingresa puesto' required />
-                <Inputs name='foto' llenarInputs={setFotoState} valor={fotoState} placeHold='Ingresa enlace de foto'/>
+                <Inputs name='nombre' valor={nameState} llenarInputs={setNameState}  placeHold='Ingresa nombre' required />
+                <Inputs name='puesto' valor={puestoState} llenarInputs={setPuestoState}  placeHold='Ingresa puesto' required />
+                <Inputs name='foto' valor={fotoState} llenarInputs={setFotoState}  placeHold='Ingresa enlace de foto'/>
                 
                 <Label htmlFor="">Equipos</Label>
                 <Select value={equipoState} onChange={e => setEquipoState(e.target.value)}>
@@ -45,6 +74,17 @@ const Formulario = ({equipos, nuevoColaborador}) => {
                 </Select>
                 
                 <Boton>Crear</Boton>
+
+            </Form>
+            <Form onSubmit={handleSubmitEquipo}>
+                <TituloForm>Rellena el formulario para crear el Equipo.</TituloForm>
+                
+                <Inputs name='titulo' valor={tituloEquipo} llenarInputs={setTituloEquipo} placeHold='Ingresa el título del Equipo' required />
+                
+                <Inputs type='color' name='color' valor={color} llenarInputs={setColor}/>
+
+                <Input type="text" value={color} onChange={e => setColor(e.target.value)} disabled />
+                <Boton>Registrar Equipo</Boton>
 
             </Form>
         </Section>
